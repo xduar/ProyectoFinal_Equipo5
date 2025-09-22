@@ -7,9 +7,9 @@
 - Kenia Lisbeht Hernandez Oliva
 - Oscar Jonatan Vasquez Rivera
 ### Usuario de Githud
-Usuario de Amos Leon:fa-arrow-right:AmosLeon
-Usuario de BrayanMartinez:fa-arrow-right:brayanjosuemartinez41-wq
-Usuario de Eduardo Menjivar:fa-arrow-right:xduar
+Usuario de Amos Leon: AmosLeon
+Usuario de BrayanMartinez: brayanjosuemartinez41-wq
+Usuario de Eduardo Menjivar: xduar
 Usuario de Kenia Monge :fa-arrow-right:  
-Usuario de  Lisbeht Hernandez:fa-arrow-right:lishernandez920-maker
-Usuario de Jonatan Vasquez:fa-arrow-right:OscarJonatanVasquezRivera
+Usuario de  Lisbeht Hernandez: lishernandez920-maker
+Usuario de Jonatan Vasquez: OscarJonatanVasquezRivera
