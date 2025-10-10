@@ -8,6 +8,7 @@
 - Oscar Jonatan Vasquez Rivera
 ### Usuario de Githud
 Usuario de Amos Leon: AmosLeon
+
 Usuario de Brayan Martinez: brayanjosuemartinez41-wq
 
 Usuario de Eduardo Menjivar: xduar
