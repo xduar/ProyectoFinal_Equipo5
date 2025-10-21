@@ -26,7 +26,14 @@
         <td>{{ cita.paciente }}</td>
         <td>{{ cita.medico }}</td>
         <td>
+          <a class="btn btn-sm btn-info" href="{% url 'clinica:cita_detail' cita.pk %}">Ver</a>
           <a class="btn btn-sm btn-primary" href="{% url 'clinica:cita_update' cita.pk %}">Editar</a>
+          <form action="{% url 'clinica:cita_completar' cita.pk %}" method="post" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('¿Confirmar que la consulta fue realizada?')">
+              Realizada
+            </button>
+          </form>
           <a class="btn btn-sm btn-danger" href="{% url 'clinica:cita_delete' cita.pk %}">Eliminar</a>
         </td>
       </tr>

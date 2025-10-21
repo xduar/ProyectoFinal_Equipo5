@@ -22,4 +22,5 @@ urlpatterns = [
     path('citas/<int:pk>/editar/', views.CitaUpdateView.as_view(), name='cita_update'),
     path('citas/<int:pk>/eliminar/', views.CitaDeleteView.as_view(), name='cita_delete'),
     path('citas/<int:pk>/', views.CitaDetailView.as_view(), name='cita_detail'),
+    path('citas/<int:pk>/completar/', views.cita_completar, name='cita_completar'),
 ]

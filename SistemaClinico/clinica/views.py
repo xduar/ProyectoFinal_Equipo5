@@ -87,6 +87,9 @@ class CitaListView(generic.ListView):
     model = Cita
     template_name = 'clinica/cita_list.html'
     context_object_name = 'citas'
+    
+    def get_queryset(self):
+        return super().get_queryset().order_by('fecha', 'hora')
 
 
 class CitaCreateView(generic.CreateView):
@@ -112,3 +115,9 @@ class CitaDeleteView(generic.DeleteView):
 class CitaDetailView(generic.DetailView):
     model = Cita
     template_name = 'clinica/cita_detail.html'
+
+def cita_completar(request, pk):
+    if request.method == 'POST':
+        cita = get_object_or_404(Cita, pk=pk)
+        cita.delete()
+        return redirect('clinica:cita_list')
