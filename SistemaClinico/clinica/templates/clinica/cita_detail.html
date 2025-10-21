@@ -1,0 +1,16 @@
+{% extends 'clinica/base.html' %}
+
+{% block title %}Detalle Cita{% endblock %}
+
+{% block content %}
+  <h2>Cita {{ object.fecha }} {{ object.hora }}</h2>
+  <ul class="list-group">
+    <li class="list-group-item"><strong>Paciente:</strong> {{ object.paciente }}</li>
+    <li class="list-group-item"><strong>Médico:</strong> {{ object.medico }}</li>
+    <li class="list-group-item"><strong>Motivo:</strong> {{ object.motivo }}</li>
+  </ul>
+  <div class="mt-3">
+    <a class="btn btn-primary" href="{% url 'clinica:cita_update' object.pk %}">Editar</a>
+    <a class="btn btn-secondary" href="{% url 'clinica:cita_list' %}">Volver</a>
+  </div>
+{% endblock %}

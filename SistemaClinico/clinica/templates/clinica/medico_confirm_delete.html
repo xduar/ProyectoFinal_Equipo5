@@ -1,0 +1,13 @@
+{% extends 'clinica/base.html' %}
+
+{% block title %}Eliminar Médico{% endblock %}
+
+{% block content %}
+  <h3>Eliminar Médico</h3>
+  <p>¿Estás seguro de que deseas eliminar a <strong>{{ object.nombre }} {{ object.apellido }}</strong>?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a class="btn btn-secondary" href="{% url 'clinica:medico_list' %}">Cancelar</a>
+  </form>
+{% endblock %}

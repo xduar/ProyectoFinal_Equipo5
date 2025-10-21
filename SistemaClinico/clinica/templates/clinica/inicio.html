@@ -1,0 +1,11 @@
+{% extends 'clinica/base.html' %}
+{% block title %}Sistema Clínico{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1 class="display-5">Bienvenido al Sistema Clínico</h1>
+    <p class="lead">Administra pacientes, citas y médicos rápidamente.</p>
+    <hr class="my-4">
+    <a class="btn btn-primary btn-lg" href="{% url 'clinica:paciente_list' %}" role="button">Ver Pacientes</a>
+  </div>
+{% endblock %}
