@@ -1,10 +1,12 @@
 {% extends 'clinica/base.html' %}
-{# Template unificado para gestión de citas médicas.
+{% comment %} 
+Plantilla para gestión de citas médicas.
     - Lista: Agenda ordenada por fecha/hora, incluye botón para marcar realizada
     - Detalle: Resumen de la cita con datos de paciente y médico
     - Formulario: Programación de nueva cita o modificación
-    - Eliminar: Pantalla para confirmar cancelación de cita
-#}
+    - Eliminar: Pantalla para confirmar cancelación de cita 
+{% endcomment %}
+
 
 {% block title %}
 {% if view == 'list' %}Citas{% elif view == 'detail' %}Detalle Cita{% elif view == 'form' %}Cita{% elif view == 'confirm_delete' %}Eliminar Cita{% endif %}

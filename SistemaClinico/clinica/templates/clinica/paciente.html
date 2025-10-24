@@ -1,10 +1,12 @@
 {% extends 'clinica/base.html' %}
-{# Template unificado para gestión de pacientes.
+{% comment %} 
+Plantilla para gestión de pacientes.
     - Lista: Tabla con buscador y paginación, muestra datos básicos
     - Detalle: Ficha completa con fecha nacimiento y contacto
     - Formulario: Alta y modificación de datos personales
-    - Eliminar: Confirmación con datos del paciente a eliminar
-#}
+    - Eliminar: Confirmación con datos del paciente a eliminar 
+{% endcomment %}
+
 
 {% block title %}
 {% if view == 'list' %}Pacientes{% elif view == 'detail' %}Detalle Paciente{% elif view == 'form' %}Paciente{% elif view == 'confirm_delete' %}Eliminar Paciente{% endif %}

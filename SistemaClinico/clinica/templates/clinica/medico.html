@@ -1,10 +1,12 @@
 {% extends 'clinica/base.html' %}
-{# Template unificado para gestión de médicos.
+{% comment %} 
+Plantilla para gestión de médicos.
     - Lista: Muestra tabla con nombre y teléfono, botones de acciones
     - Detalle: Información completa del médico seleccionado
     - Formulario: Campos para crear o editar médico
-    - Eliminar: Pantalla de confirmación antes de borrar
-#}
+    - Eliminar: Pantalla de confirmación antes de borrar 
+{% endcomment %}
+
 
 {% block title %}
 {% if view == 'list' %}Médicos{% elif view == 'detail' %}Detalle Médico{% elif view == 'form' %}Médico{% elif view == 'confirm_delete' %}Eliminar Médico{% endif %}
