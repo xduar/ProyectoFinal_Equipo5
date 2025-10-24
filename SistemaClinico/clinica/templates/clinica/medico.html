@@ -1,0 +1,83 @@
+{% extends 'clinica/base.html' %}
+{# Template unificado para gestión de médicos.
+    - Lista: Muestra tabla con nombre y teléfono, botones de acciones
+    - Detalle: Información completa del médico seleccionado
+    - Formulario: Campos para crear o editar médico
+    - Eliminar: Pantalla de confirmación antes de borrar
+#}
+
+{% block title %}
+{% if view == 'list' %}Médicos{% elif view == 'detail' %}Detalle Médico{% elif view == 'form' %}Médico{% elif view == 'confirm_delete' %}Eliminar Médico{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if view == 'list' %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Médicos</h2>
+    <a class="btn btn-success" href="{% url 'clinica:medico_create' %}">Nuevo Médico</a>
+    </div>
+
+    <table class="table table-striped">
+    <thead>
+        <tr>
+        <th>Nombre</th>
+        <th>Teléfono</th>
+        <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for medico in medicos %}
+        <tr>
+        <td><a href="{% url 'clinica:medico_detail' medico.pk %}">{{ medico.nombre }} {{ medico.apellido }}</a></td>
+        <td>{{ medico.telefono }}</td>
+        <td>
+            <a class="btn btn-sm btn-primary" href="{% url 'clinica:medico_update' medico.pk %}">Editar</a>
+            <a class="btn btn-sm btn-danger" href="{% url 'clinica:medico_delete' medico.pk %}">Eliminar</a>
+        </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">No hay médicos aún.</td></tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+{% elif view == 'detail' %}
+    <h2>{{ object.nombre }} {{ object.apellido }}</h2>
+    <ul class="list-group">
+    <li class="list-group-item"><strong>Teléfono:</strong> {{ object.telefono }}</li>
+    </ul>
+    <div class="mt-3">
+    <a class="btn btn-primary" href="{% url 'clinica:medico_update' object.pk %}">Editar</a>
+    <a class="btn btn-secondary" href="{% url 'clinica:medico_list' %}">Volver</a>
+    </div>
+
+{% elif view == 'form' %}
+    <h2>{% if object %}Editar{% else %}Nuevo{% endif %} Médico</h2>
+    <form method="post">
+    {% csrf_token %}
+    <div class="row g-3">
+        {% for field in form.visible_fields %}
+        <div class="col-md-6">
+            <label class="form-label">{{ field.label_tag }}</label>
+            {{ field }}
+            {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="mt-3">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+        <a class="btn btn-secondary" href="{% url 'clinica:medico_list' %}">Cancelar</a>
+    </div>
+    </form>
+
+{% elif view == 'confirm_delete' %}
+    <h3>Eliminar Médico</h3>
+    <p>¿Estás seguro de que deseas eliminar a <strong>{{ object.nombre }} {{ object.apellido }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a class="btn btn-secondary" href="{% url 'clinica:medico_list' %}">Cancelar</a>
+    </form>
+
+{% endif %}
+{% endblock %}
