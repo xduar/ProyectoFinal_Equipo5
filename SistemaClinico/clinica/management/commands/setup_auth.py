@@ -30,8 +30,8 @@ class Command(BaseCommand):
         
         # Crear superusuarios
         superusers = [
-            {'username': 'admin1', 'email': 'admin1@clinica.com'},
-            {'username': 'admin2', 'email': 'admin2@clinica.com'},
+            {'username': 'Doctor', 'email': 'Doctor1@clinica.com'},
+            {'username': 'Secretaria', 'email': 'Secretaria1@clinica.com'},
             {'username': 'admin3', 'email': 'admin3@clinica.com'},
         ]
         
@@ -40,7 +40,7 @@ class Command(BaseCommand):
                 User.objects.create_superuser(
                     username=admin['username'],
                     email=admin['email'],
-                    password='Admin123!'  # Cambiar estas contraseñas inmediatamente después de la creación
+                    password='Admin123!' 
                 )
                 self.stdout.write(
                     self.style.SUCCESS(f'Superusuario "{admin["username"]}" creado')

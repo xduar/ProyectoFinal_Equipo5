@@ -77,7 +77,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'SistemaCitasMedicas',
-        'HOST': 'AMOSLEON\\SQLEXPRESS',
+        'HOST': '(localdb)\\MSSQLLocalDB',
         'PORT': '',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
