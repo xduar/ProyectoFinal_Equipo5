@@ -19,4 +19,4 @@ class CitaAdmin(admin.ModelAdmin):
 
 @admin.register(Usuario)
 class UsuarioAdmin(admin.ModelAdmin):
-	list_display = ('nombre_usuario',)
+    list_display = ('nombre_usuario',)
