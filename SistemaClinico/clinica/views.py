@@ -2,16 +2,29 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 from django.db import models as dj_models
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import CreateView
+from django.contrib.auth import login
+from django.contrib.auth import logout as auth_logout
 
 from .models import Paciente, Medico, Cita
-from .forms import PacienteForm, MedicoForm, CitaForm
+from .forms import PacienteForm, MedicoForm, CitaForm, RegistroUsuarioForm
+
+class AdminRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser
 
 
 def inicio(request):
+    # Si el usuario no está autenticado, redirigimos al login para que inicie sesión primero
+    if not request.user.is_authenticated:
+        from django.shortcuts import redirect
+        return redirect('login')
     return render(request, 'clinica/inicio.html')
 
 
-class PacienteListView(generic.ListView):
+class PacienteListView(AdminRequiredMixin, LoginRequiredMixin, generic.ListView):
     model = Paciente
     template_name = 'clinica/paciente.html'
     context_object_name = 'pacientes'
@@ -30,7 +43,7 @@ class PacienteListView(generic.ListView):
         return ctx
 
 
-class PacienteCreateView(generic.CreateView):
+class PacienteCreateView(AdminRequiredMixin, LoginRequiredMixin, generic.CreateView):
     model = Paciente
     form_class = PacienteForm
     template_name = 'clinica/paciente.html'
@@ -42,7 +55,7 @@ class PacienteCreateView(generic.CreateView):
         return ctx
 
 
-class PacienteUpdateView(generic.UpdateView):
+class PacienteUpdateView(AdminRequiredMixin, LoginRequiredMixin, generic.UpdateView):
     model = Paciente
     form_class = PacienteForm
     template_name = 'clinica/paciente.html'
@@ -54,7 +67,7 @@ class PacienteUpdateView(generic.UpdateView):
         return ctx
 
 
-class PacienteDeleteView(generic.DeleteView):
+class PacienteDeleteView(AdminRequiredMixin, LoginRequiredMixin, generic.DeleteView):
     model = Paciente
     template_name = 'clinica/paciente.html'
     success_url = reverse_lazy('clinica:paciente_list')
@@ -65,7 +78,7 @@ class PacienteDeleteView(generic.DeleteView):
         return ctx
 
 
-class PacienteDetailView(generic.DetailView):
+class PacienteDetailView(AdminRequiredMixin, LoginRequiredMixin, generic.DetailView):
     model = Paciente
     template_name = 'clinica/paciente.html'
 
@@ -76,7 +89,7 @@ class PacienteDetailView(generic.DetailView):
 
 
 # Medico CRUD
-class MedicoListView(generic.ListView):
+class MedicoListView(AdminRequiredMixin, LoginRequiredMixin, generic.ListView):
     model = Medico
     template_name = 'clinica/medico.html'
     context_object_name = 'medicos'
@@ -87,7 +100,7 @@ class MedicoListView(generic.ListView):
         return ctx
 
 
-class MedicoCreateView(generic.CreateView):
+class MedicoCreateView(AdminRequiredMixin, LoginRequiredMixin, generic.CreateView):
     model = Medico
     form_class = MedicoForm
     template_name = 'clinica/medico.html'
@@ -99,7 +112,7 @@ class MedicoCreateView(generic.CreateView):
         return ctx
 
 
-class MedicoUpdateView(generic.UpdateView):
+class MedicoUpdateView(AdminRequiredMixin, LoginRequiredMixin, generic.UpdateView):
     model = Medico
     form_class = MedicoForm
     template_name = 'clinica/medico.html'
@@ -111,7 +124,7 @@ class MedicoUpdateView(generic.UpdateView):
         return ctx
 
 
-class MedicoDeleteView(generic.DeleteView):
+class MedicoDeleteView(AdminRequiredMixin, LoginRequiredMixin, generic.DeleteView):
     model = Medico
     template_name = 'clinica/medico.html'
     success_url = reverse_lazy('clinica:medico_list')
@@ -122,7 +135,7 @@ class MedicoDeleteView(generic.DeleteView):
         return ctx
 
 
-class MedicoDetailView(generic.DetailView):
+class MedicoDetailView(AdminRequiredMixin, LoginRequiredMixin, generic.DetailView):
     model = Medico
     template_name = 'clinica/medico.html'
 
@@ -133,7 +146,7 @@ class MedicoDetailView(generic.DetailView):
 
 
 # Cita CRUD
-class CitaListView(generic.ListView):
+class CitaListView(LoginRequiredMixin, generic.ListView):
     model = Cita
     template_name = 'clinica/cita.html'
     context_object_name = 'citas'
@@ -147,7 +160,7 @@ class CitaListView(generic.ListView):
         return ctx
 
 
-class CitaCreateView(generic.CreateView):
+class CitaCreateView(LoginRequiredMixin, generic.CreateView):
     model = Cita
     form_class = CitaForm
     template_name = 'clinica/cita.html'
@@ -159,7 +172,7 @@ class CitaCreateView(generic.CreateView):
         return ctx
 
 
-class CitaUpdateView(generic.UpdateView):
+class CitaUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Cita
     form_class = CitaForm
     template_name = 'clinica/cita.html'
@@ -171,7 +184,7 @@ class CitaUpdateView(generic.UpdateView):
         return ctx
 
 
-class CitaDeleteView(generic.DeleteView):
+class CitaDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Cita
     template_name = 'clinica/cita.html'
     success_url = reverse_lazy('clinica:cita_list')
@@ -182,7 +195,7 @@ class CitaDeleteView(generic.DeleteView):
         return ctx
 
 
-class CitaDetailView(generic.DetailView):
+class CitaDetailView(LoginRequiredMixin, generic.DetailView):
     model = Cita
     template_name = 'clinica/cita.html'
 
@@ -191,8 +204,42 @@ class CitaDetailView(generic.DetailView):
         ctx['view'] = 'detail'
         return ctx
 
+@login_required
 def cita_completar(request, pk):
     if request.method == 'POST':
         cita = get_object_or_404(Cita, pk=pk)
         cita.delete()
         return redirect('clinica:cita_list')
+
+
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+class RegistroView(CreateView):
+    form_class = RegistroUsuarioForm
+    template_name = 'clinica/register.html'
+    success_url = reverse_lazy('clinica:inicio')
+    
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        login(self.request, self.object)
+        return response
+
+def logout_confirm(request):
+    """Mostrar confirmación en GET; hacer logout y redirigir en POST.
+
+    - GET: renderiza `clinica/logout_confirm.html` con el botón de confirmación.
+    - POST: cierra la sesión y redirige a `clinica:inicio` usando reverse_lazy.
+    """
+    if request.method == 'POST':
+        auth_logout(request)
+        return redirect(reverse_lazy('clinica:inicio'))
+    # GET u otros métodos: mostrar confirmación
+    return render(request, 'clinica/logout_confirm.html')
+
+class AdminRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
