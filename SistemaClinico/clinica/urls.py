@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.contrib.auth.views import LoginView, LogoutView
+
 
 app_name = 'clinica'
 
@@ -23,4 +25,10 @@ urlpatterns = [
     path('citas/<int:pk>/eliminar/', views.CitaDeleteView.as_view(), name='cita_delete'),
     path('citas/<int:pk>/', views.CitaDetailView.as_view(), name='cita_detail'),
     path('citas/<int:pk>/completar/', views.cita_completar, name='cita_completar'),
+    # Login
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('registro/', views.RegistroView.as_view(), name='registro'),
+    path('login/', LoginView.as_view(template_name='clinica/login.html'), name='login'),
+    path('logout/', views.logout_confirm, name='logout'),
 ]
+

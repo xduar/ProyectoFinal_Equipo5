@@ -1,0 +1,46 @@
+{% extends 'clinica/base.html' %}
+{% load static %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Iniciar sesión</h3>
+            </div>
+            <div class="card-body">
+                {% if user.is_authenticated %}
+                    <div class="alert alert-success text-center">
+                        Ya estás logueado como <strong>{{ user.username }}</strong>.
+                    </div>
+                    <div class="text-center">
+                        <a href="{% url 'clinica:logout' %}" class="btn btn-danger">Cerrar sesión</a>
+                        <a href="{% url 'clinica:dashboard' %}" class="btn btn-primary ms-2">Ir al panel</a>
+                    </div>
+                {% else %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                                                <div class="mb-3">
+                                                    <label for="id_username" class="form-label">Usuario</label>
+                                                    <input type="text" name="username" id="id_username" class="form-control" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="id_password" class="form-label">Contraseña</label>
+                                                    <input type="password" name="password" id="id_password" class="form-control" required>
+                                                </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Entrar</button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <p>¿No tienes una cuenta? <a href="{% url 'clinica:registro' %}">Regístrate aquí</a></p>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
