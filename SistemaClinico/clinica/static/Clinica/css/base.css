@@ -1,0 +1,311 @@
+/* --- ESTILOS GENERALES --- */
+
+body {
+  /* Un fondo suave para que el contenido resalte */
+    background-color: #f8f9fa; 
+    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* --- BARRA DE NAVEGACIÓN (NAVBAR) --- */
+
+/* Puedes sobrescribir el color 'bg-primary' de Bootstrap */
+.navbar.bg-primary {
+  /* Un tono de azul más profundo o el color de tu marca */
+    background-color: #0d47a1 !important;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.navbar-brand img { display: none !important; }
+
+.nav-link {
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  /* Efecto sutil al pasar el mouse */
+    color: #fff !important;
+    transform: translateY(-2px);
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+
+.container {
+    /* Le damos al contenedor principal un fondo blanco y sombra
+    para que parezca una "tarjeta" sobre el fondo gris */
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    margin-top: 2rem; /* Separación del navbar */
+    margin-bottom: 2rem; /* Separación del footer (si tuvieras) */
+}
+
+/* --- TÍTULOS Y TEXTO --- */
+
+h1, h2, h3 {
+    color: #0d47a1; /* Usa el mismo color del navbar para consistencia */
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+/* --- BOTONES --- */
+
+/* Estilo personalizado para botones primarios */
+.btn-primary {
+    background-color: #1565c0;
+    border-color: #1565c0;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #0d47a1; /* Un poco más oscuro al pasar el mouse */ 
+    border-color: #0d47a1;
+}
+
+/* Estilo para botones secundarios (ej. 'Cancelar') */
+.btn-secondary {
+    font-weight: 500;
+}
+
+/* --- ALERTAS Y MENSAJES --- */
+.alert {
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.alert-success {
+    background-color: #e8f5e9;
+    color: #1b5e20;
+    border-left: 4px solid #2e7d32;
+}
+
+.alert-danger {
+    background-color: #ffebee;
+    color: #b71c1c;
+    border-left: 4px solid #c62828;
+}
+
+.alert-dismissible .close {
+    padding: 1rem 1.5rem;
+    color: inherit;
+    opacity: 0.8;
+}
+
+.alert-dismissible .close:hover {
+    opacity: 1;
+}
+
+/* --- TABLAS --- */
+.table {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    color: #495057;
+    font-weight: 600;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* --- BOTONES MEJORADOS --- */
+.btn {
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    border-radius: 4px;
+}
+
+.btn-success {
+    background-color: #2e7d32;
+    border-color: #2e7d32;
+}
+
+.btn-success:hover {
+    background-color: #1b5e20;
+    border-color: #1b5e20;
+    transform: translateY(-1px);
+}
+
+.btn-danger {
+    background-color: #c62828;
+    border-color: #c62828;
+}
+
+.btn-danger:hover {
+    background-color: #b71c1c;
+    border-color: #b71c1c;
+    transform: translateY(-1px);
+}
+
+/* --- FORMULARIOS (MEJORAS A SELECT2) --- */
+
+/* Ajusta los 'select2' para que se vean bien con Bootstrap 5 */
+.select2-container .select2-selection--single {
+    height: 38px !important; /* Misma altura que los inputs de Bootstrap */
+    padding: 6px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 36px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 24px !important;
+}
+
+/* --- FORMULARIOS MEJORADOS --- */
+.form-control {
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+    padding: 0.5rem 0.75rem;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #1565c0;
+    box-shadow: 0 0 0 0.2rem rgba(21, 101, 192, 0.25);
+}
+
+/* --- ESPACIADO Y UTILIDADES --- */
+.mb-3 {
+    margin-bottom: 1.5rem !important;
+}
+
+.mt-3 {
+    margin-top: 1.5rem !important;
+}
+
+.d-inline {
+    display: inline-block !important;
+    margin-right: 0.5rem;
+}
+
+/* HERO / banner más grande */
+.hero {
+    width: 100%;
+    /* ocupamos más alto de la pantalla */
+    height: 80vh;
+    min-height: 520px;
+    max-height: none;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.12);
+}
+
+/* capa de imagen (mantener enfoque en caras) */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--hero-bg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* desplaza un poco hacia arriba para mostrar las caras */
+    background-position: center 25%;
+    filter: saturate(1.28) contrast(1.10) brightness(1);
+    transform: translateZ(0);
+    z-index: 0;
+}
+
+/* overlay sutil */
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.18) 40%, rgba(255,255,255,0.01) 100%);
+    pointer-events: none;
+}
+
+/* tarjeta más compacta para dejar más imagen visible */
+.hero-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(4px);
+    padding: 1.6rem 1.8rem; /* menor padding */
+    border-radius: 10px;
+    max-width: 760px;       /* tarjeta más angosta */
+    width: calc(100% - 2rem);
+    box-shadow: 0 12px 30px rgba(10, 30, 60, 0.08);
+    z-index: 2;
+    text-align: center;
+}
+
+/* títulos un poco más pequeños para caber mejor */
+.hero-card h1 {
+    font-size: 2.4rem;
+}
+
+.hero-card p.lead {
+    font-size: 1rem;
+}
+
+/* HERO WIDE: ocupa todo el ancho de la ventana */
+.hero-wide {
+    width: 100vw; /* ocupa todo el ancho del viewport */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    border-radius: 0; /* opcional: sin bordes para edge-to-edge */
+    overflow: hidden;
+    /* mantiene la altura grande */
+    height: 80vh;
+    min-height: 520px;
+    box-shadow: none; /* opcional, evita sombras cortadas en los bordes */
+}
+
+/* si quieres mantener la sombra y bordes redondeados dentro del container */
+.hero-wide .hero-card {
+    box-shadow: 0 14px 48px rgba(10,30,60,0.12);
+    border-radius: 12px;
+}
+
+/* si quieres una ligera separación lateral en pantallas grandes */
+@media (min-width: 1200px) {
+    .hero-card { max-width: 1100px; }
+}
+
+/* asegúrate de que pseudo-elementos sigan funcionando (usa las mismas reglas anteriores) */
+.hero-wide::before,
+.hero-wide::after {
+    content: ""; /* Añadir contenido para evitar reglas vacías */
+}
+
+/* responsive adjustments */
+@media (max-width: 992px) {
+    .hero-wide { height: 70vh; min-height: 420px; }
+}
+@media (max-width: 576px) {
+    .hero-wide { height: 48vh; min-height: 220px; }
+}
