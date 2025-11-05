@@ -269,21 +269,19 @@ h1, h2, h3 {
     font-size: 1rem;
 }
 
-/* HERO WIDE: ocupa todo el ancho de la ventana */
+
 .hero-wide {
-    width: 100vw; /* ocupa todo el ancho del viewport */
+    width: 100vw; 
     position: relative;
     left: 50%;
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    border-radius: 0; /* opcional: sin bordes para edge-to-edge */
+    border-radius: 0; 
     overflow: hidden;
-    /* mantiene la altura grande */
     height: 80vh;
     min-height: 520px;
-    box-shadow: none; /* opcional, evita sombras cortadas en los bordes */
-}
+    box-shadow: none;
 
 /* si quieres mantener la sombra y bordes redondeados dentro del container */
 .hero-wide .hero-card {
@@ -308,4 +306,5 @@ h1, h2, h3 {
 }
 @media (max-width: 576px) {
     .hero-wide { height: 48vh; min-height: 220px; }
+}
 }

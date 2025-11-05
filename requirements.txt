@@ -1,7 +1,10 @@
 asgiref==3.10.0
 Django==5.2.7
+gunicorn==23.0.0
 mssql-django==1.6
+packaging==25.0
 pyodbc==5.3.0
 pytz==2025.2
 sqlparse==0.5.3
 tzdata==2025.2
+whitenoise==6.11.0
