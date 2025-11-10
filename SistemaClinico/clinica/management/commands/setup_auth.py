@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group, User, Permission
 from django.contrib.contenttypes.models import ContentType
 from clinica.models import Cita
+import os
 
 class Command(BaseCommand):
     help = 'Configura los grupos, permisos y superusuarios iniciales del sistema'
@@ -49,3 +50,7 @@ class Command(BaseCommand):
                 self.stdout.write(
                     self.style.WARNING(f'Superusuario "{admin["username"]}" ya existe')
                 )
+
+        # Configurar la base de datos
+        DATABASE_URL = os.environ.get('DATABASE_URL', 'postgresql://usuario:contraseña@localhost:5432/sistemaclinico')
+        self.stdout.write(self.style.SUCCESS(f'Conectado a la base de datos en {DATABASE_URL}'))

@@ -1,4 +1,6 @@
 {% extends 'clinica/base.html' %}
+{% load static %}
+
 {% comment %} 
 Plantilla para gestión de citas médicas.
     - Lista: Agenda ordenada por fecha/hora, incluye botón para marcar realizada
@@ -7,114 +9,129 @@ Plantilla para gestión de citas médicas.
     - Eliminar: Pantalla para confirmar cancelación de cita 
 {% endcomment %}
 
-
 {% block title %}
 {% if view == 'list' %}Citas{% elif view == 'detail' %}Detalle Cita{% elif view == 'form' %}Cita{% elif view == 'confirm_delete' %}Eliminar Cita{% endif %}
 {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'Clinica/css/cita.css' %}">
+{% endblock %}
+
+{% block hero %}
+{% if view == 'list' %}
+<div class="container">
+    <section class="hero-cita" style="background-image: url('{% static "Clinica/img/citamedica.jpg" %}');">
+        <div class="hero-card-cita">
+            <h1>Citas</h1>
+            <p class="lead">Gestión de citas médicas del sistema</p>
+        </div>
+    </section>
+</div>
+{% endif %}
+{% endblock %}
+
 {% block content %}
 {% if view == 'list' %}
-    <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Citas</h2>
-    <a class="btn btn-success" href="{% url 'clinica:cita_create' %}">Nueva Cita</a>
+    <div class="button-container mb-3">
+        <a class="btn btn-success" href="{% url 'clinica:cita_create' %}">Nueva Cita</a>
     </div>
 
     <table class="table table-striped">
-    <thead>
-        <tr>
-        <th>Fecha</th>
-        <th>Hora</th>
-        <th>Paciente</th>
-        <th>Médico</th>
-        <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for cita in citas %}
-        <tr>
-        <td>{{ cita.fecha }}</td>
-        <td>{{ cita.hora }}</td>
-        <td>{{ cita.paciente }}</td>
-        <td>{{ cita.medico }}</td>
-        <td>
-            <a class="btn btn-sm btn-info" href="{% url 'clinica:cita_detail' cita.pk %}">Ver</a>
-            <a class="btn btn-sm btn-primary" href="{% url 'clinica:cita_update' cita.pk %}">Editar</a>
-            <form action="{% url 'clinica:cita_completar' cita.pk %}" method="post" class="d-inline">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('¿Confirmar que la consulta fue realizada?')">
-                Realizada
-            </button>
-            </form>
-            <a class="btn btn-sm btn-danger" href="{% url 'clinica:cita_delete' cita.pk %}">Eliminar</a>
-        </td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="5">No hay citas aún.</td></tr>
-        {% endfor %}
-    </tbody>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Paciente</th>
+                <th>Médico</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cita in citas %}
+            <tr>
+                <td>{{ cita.fecha }}</td>
+                <td>{{ cita.hora }}</td>
+                <td>{{ cita.paciente }}</td>
+                <td>{{ cita.medico }}</td>
+                <td>
+                    <a class="btn btn-sm btn-info" href="{% url 'clinica:cita_detail' cita.pk %}">Ver</a>
+                    <a class="btn btn-sm btn-primary" href="{% url 'clinica:cita_update' cita.pk %}">Editar</a>
+                    <form action="{% url 'clinica:cita_completar' cita.pk %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('¿Confirmar que la consulta fue realizada?')">
+                            Realizada
+                        </button>
+                    </form>
+                    <a class="btn btn-sm btn-danger" href="{% url 'clinica:cita_delete' cita.pk %}">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">No hay citas aún.</td></tr>
+            {% endfor %}
+        </tbody>
     </table>
 
 {% elif view == 'detail' %}
     <h2>Cita {{ object.fecha }} {{ object.hora }}</h2>
     <ul class="list-group">
-    <li class="list-group-item"><strong>Paciente:</strong> {{ object.paciente }}</li>
-    <li class="list-group-item"><strong>Médico:</strong> {{ object.medico }}</li>
-    <li class="list-group-item"><strong>Motivo:</strong> {{ object.motivo }}</li>
+        <li class="list-group-item"><strong>Paciente:</strong> {{ object.paciente }}</li>
+        <li class="list-group-item"><strong>Médico:</strong> {{ object.medico }}</li>
+        <li class="list-group-item"><strong>Motivo:</strong> {{ object.motivo }}</li>
     </ul>
     <div class="mt-3">
-    <a class="btn btn-primary" href="{% url 'clinica:cita_update' object.pk %}">Editar</a>
-    <a class="btn btn-secondary" href="{% url 'clinica:cita_list' %}">Volver</a>
+        <a class="btn btn-primary" href="{% url 'clinica:cita_update' object.pk %}">Editar</a>
+        <a class="btn btn-secondary" href="{% url 'clinica:cita_list' %}">Volver</a>
     </div>
 
 {% elif view == 'form' %}
     <h2>{% if object %}Editar{% else %}Nueva{% endif %} Cita</h2>
     <form method="post">
-    {% csrf_token %}
-    <div class="row g-3">
-        {% for field in form.visible_fields %}
-        <div class="col-md-6">
-        <label class="form-label">{{ field.label_tag }}</label>
-        {{ field }}
-        {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+        {% csrf_token %}
+        <div class="row g-3">
+            {% for field in form.visible_fields %}
+            <div class="col-md-6">
+                <label class="form-label">{{ field.label_tag }}</label>
+                {{ field }}
+                {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-    <div class="mt-3">
-        <button class="btn btn-primary" type="submit">Guardar</button>
-        <a class="btn btn-secondary" href="{% url 'clinica:cita_list' %}">Cancelar</a>
-    </div>
+        <div class="mt-3">
+            <button class="btn btn-primary" type="submit">Guardar</button>
+            <a class="btn btn-secondary" href="{% url 'clinica:cita_list' %}">Cancelar</a>
+        </div>
     </form>
 
 {% elif view == 'confirm_delete' %}
     <div class="card">
-    <div class="card-header">
-        <h3>Confirmar Eliminación</h3>
-    </div>
-    <div class="card-body">
-        <p class="lead">¿Estás seguro de que deseas eliminar la siguiente cita?</p>
-        
-        <dl class="row">
-        <dt class="col-sm-3">Fecha:</dt>
-        <dd class="col-sm-9">{{ object.fecha }}</dd>
-
-        <dt class="col-sm-3">Hora:</dt>
-        <dd class="col-sm-9">{{ object.hora }}</dd>
-
-        <dt class="col-sm-3">Paciente:</dt>
-        <dd class="col-sm-9">{{ object.paciente }}</dd>
-
-        <dt class="col-sm-3">Médico:</dt>
-        <dd class="col-sm-9">{{ object.medico }}</dd>
-        </dl>
-
-        <form method="post">
-        {% csrf_token %}
-        <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
-            <a href="{% url 'clinica:cita_list' %}" class="btn btn-secondary">No, cancelar</a>
+        <div class="card-header">
+            <h3>Confirmar Eliminación</h3>
         </div>
-        </form>
-    </div>
+        <div class="card-body">
+            <p class="lead">¿Estás seguro de que deseas eliminar la siguiente cita?</p>
+            
+            <dl class="row">
+                <dt class="col-sm-3">Fecha:</dt>
+                <dd class="col-sm-9">{{ object.fecha }}</dd>
+
+                <dt class="col-sm-3">Hora:</dt>
+                <dd class="col-sm-9">{{ object.hora }}</dd>
+
+                <dt class="col-sm-3">Paciente:</dt>
+                <dd class="col-sm-9">{{ object.paciente }}</dd>
+
+                <dt class="col-sm-3">Médico:</dt>
+                <dd class="col-sm-9">{{ object.medico }}</dd>
+            </dl>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                    <a href="{% url 'clinica:cita_list' %}" class="btn btn-secondary">No, cancelar</a>
+                </div>
+            </form>
+        </div>
     </div>
 
 {% endif %}

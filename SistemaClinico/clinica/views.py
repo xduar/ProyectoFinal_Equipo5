@@ -17,10 +17,6 @@ class AdminRequiredMixin(UserPassesTestMixin):
 
 
 def inicio(request):
-    # Si el usuario no está autenticado, redirigimos al login para que inicie sesión primero
-    if not request.user.is_authenticated:
-        from django.shortcuts import redirect
-        return redirect('login')
     return render(request, 'clinica/inicio.html')
 
 
@@ -233,17 +229,20 @@ class CitaDetailView(LoginRequiredMixin, generic.DetailView):
         ctx['view'] = 'detail'
         return ctx
 
+
 @login_required
 def cita_completar(request, pk):
     if request.method == 'POST':
         cita = get_object_or_404(Cita, pk=pk)
         cita.delete()
         return redirect('clinica:cita_list')
+    return redirect('clinica:cita_list')
 
 
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    return render(request, 'clinica/dashboard.html')
+
 
 class RegistroView(CreateView):
     form_class = RegistroUsuarioForm
@@ -255,20 +254,12 @@ class RegistroView(CreateView):
         login(self.request, self.object)
         return response
 
-def logout_confirm(request):
-    """Mostrar confirmación en GET; hacer logout y redirigir en POST.
 
-    - GET: renderiza `clinica/logout_confirm.html` con el botón de confirmación.
-    - POST: cierra la sesión y redirige a `clinica:inicio` usando reverse_lazy.
-    """
+def logout_confirm(request):
+    """Mostrar confirmación en GET; hacer logout y redirigir en POST."""
     if request.method == 'POST':
         auth_logout(request)
-        return redirect(reverse_lazy('clinica:inicio'))
-    # GET u otros métodos: mostrar confirmación
+        return redirect('clinica:inicio')
     return render(request, 'clinica/logout_confirm.html')
-
-class AdminRequiredMixin(UserPassesTestMixin):
-    def test_func(self):
-        return self.request.user.is_superuser
 
 
