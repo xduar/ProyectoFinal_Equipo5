@@ -152,7 +152,11 @@ class CitaListView(LoginRequiredMixin, generic.ListView):
     context_object_name = 'citas'
     
     def get_queryset(self):
-        return super().get_queryset().order_by('fecha', 'hora')
+        # Si es superusuario, puede ver todas las citas
+        if self.request.user.is_superuser:
+            return super().get_queryset().order_by('fecha', 'hora')
+        # Si es usuario normal, solo ve sus citas
+        return super().get_queryset().filter(usuario=self.request.user).order_by('fecha', 'hora')
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -166,6 +170,10 @@ class CitaCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = 'clinica/cita.html'
     success_url = reverse_lazy('clinica:cita_list')
 
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
+
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['view'] = 'form'
@@ -178,6 +186,13 @@ class CitaUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = 'clinica/cita.html'
     success_url = reverse_lazy('clinica:cita_list')
 
+    def get_queryset(self):
+        # Si es superusuario, puede editar todas las citas
+        if self.request.user.is_superuser:
+            return super().get_queryset()
+        # Si es usuario normal, solo puede editar sus citas
+        return super().get_queryset().filter(usuario=self.request.user)
+
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['view'] = 'form'
@@ -189,6 +204,13 @@ class CitaDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'clinica/cita.html'
     success_url = reverse_lazy('clinica:cita_list')
 
+    def get_queryset(self):
+        # Si es superusuario, puede eliminar todas las citas
+        if self.request.user.is_superuser:
+            return super().get_queryset()
+        # Si es usuario normal, solo puede eliminar sus citas
+        return super().get_queryset().filter(usuario=self.request.user)
+
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['view'] = 'confirm_delete'
@@ -198,6 +220,13 @@ class CitaDeleteView(LoginRequiredMixin, generic.DeleteView):
 class CitaDetailView(LoginRequiredMixin, generic.DetailView):
     model = Cita
     template_name = 'clinica/cita.html'
+
+    def get_queryset(self):
+        # Si es superusuario, puede ver todas las citas
+        if self.request.user.is_superuser:
+            return super().get_queryset()
+        # Si es usuario normal, solo puede ver sus citas
+        return super().get_queryset().filter(usuario=self.request.user)
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
