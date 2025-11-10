@@ -3,17 +3,21 @@
 
 {% block title %}Inicio{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'Clinica/css/inicio.css' %}">
+{% endblock %}
+
 {% block hero %}
-  <section class="hero hero-wide" style="--hero-bg: url('{% static "Clinica/img/doctores.jpg" %}');">
-    <div class="hero-card">
-      <h1>Bienvenido al Sistema Clínico</h1>
-      <p class="lead">Administra pacientes, citas y médicos rápidamente.</p>
-    </div>
-  </section>
+  <div class="container">
+    <section class="hero" style="--hero-bg: url('{% static "Clinica/img/doctores.jpg" %}');">
+      <div class="hero-card">
+        <h1>Bienvenido al Sistema Clínico</h1>
+        <p class="lead">Administra pacientes, citas y médicos rápidamente.</p>
+      </div>
+    </section>
+  </div>
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    <!-- resto del contenido centrado dentro del container -->
-  </div>
+<!-- contenido de inicio -->
 {% endblock %}

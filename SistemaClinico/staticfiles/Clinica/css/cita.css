@@ -1,0 +1,15 @@
+/* Header */
+.citas-header { text-align:center; margin-bottom:1.25rem; }
+.citas-header h1{ font-size:40px; font-weight:700; color:#1f2937; margin:0; }
+.citas-header p{ color:#6b7280; margin:.25rem 0 1rem; }
+
+/* Botón crear */
+.button-container{ display:flex; justify-content:flex-start; margin-bottom:1rem; }
+
+/* Tabla */
+.table-citas, .table { border-radius: 12px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,.06); }
+.table thead th{ background:#f8fafc; color:#334155; font-weight:600; text-transform:uppercase; letter-spacing:.4px; }
+.table tbody tr:hover{ background:#f1f5f9; }
+
+/* Acciones */
+.btn-sm{ padding:.25rem .5rem; font-size:.875rem; border-radius:6px; }

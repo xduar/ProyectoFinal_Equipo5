@@ -101,30 +101,3 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
-
-services:
-  - type: web
-    name: sistema-clinico
-    env: python
-    rootDir: SistemaClinico
-    buildCommand: |
-      pip install -r ../requirements.txt
-      python manage.py collectstatic --no-input
-      python manage.py migrate --no-input
-    startCommand: gunicorn SistemaClinico.wsgi:application
-    autoDeploy: true
-    envVars:
-      - key: SECRET_KEY
-        generateValue: true
-      - key: DEBUG
-        value: "False"
-      - key: ALLOWED_HOSTS
-        value: ".onrender.com"
-      - key: PYTHON_VERSION
-        value: "3.11.0"
-
-databases:
-  - name: sistema-clinico-db
-    databaseName: sistema_clinico
-    user: sistema_clinico_user
-

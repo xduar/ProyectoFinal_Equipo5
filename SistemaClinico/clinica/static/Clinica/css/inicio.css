@@ -1,0 +1,5 @@
+/* Overrides suaves del hero de inicio */
+.hero { height: 72vh; min-height: 520px; }
+.hero-card { background: rgba(255,255,255,0.92); backdrop-filter: blur(4px); }
+.hero-card h1 { font-size: 3rem; font-weight: 600; color: #1b4a9b; }
+.hero-card p.lead { font-size: 1.1rem; color: #495057; }

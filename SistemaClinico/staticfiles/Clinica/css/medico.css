@@ -1,0 +1,10 @@
+.medicos-header{ display:flex; flex-direction:column; align-items:center; gap:.5rem; margin-bottom:1.25rem; }
+.medicos-header h1{ font-size:36px; font-weight:700; color:#064e3b; margin:0; }
+.medicos-header .sub{ color:#0f766e; }
+
+.table { border-radius:12px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,.06); }
+.table thead th{ background:#ecfdf5; color:#065f46; }
+.table tbody tr:hover{ background:#f0fdf4; }
+
+/* Formularios */
+.form-card{ background:#fff; border-radius:12px; padding:1.25rem; box-shadow:0 8px 20px rgba(2,44,34,.06); }

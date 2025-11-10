@@ -1,23 +1,26 @@
 {% extends 'clinica/base.html' %}
+{% load static %}
+
+{% block title %}Cerrar sesión{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'Clinica/css/auth.css' %}">
+{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="text-center">Confirmar Cierre de Sesión</h3>
-            </div>
-            <div class="card-body">
-                <p class="text-center">¿Estás seguro de que deseas cerrar sesión?</p>
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="d-flex justify-content-center gap-2">
-                        <button type="submit" class="btn btn-danger">Sí, cerrar sesión</button>
-                        <a href="{% url 'clinica:inicio' %}" class="btn btn-secondary">No, cancelar</a>
-                    </div>
-                </form>
-            </div>
-        </div>
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h1>¿Cerrar sesión?</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="d-grid gap-2 mt-3">
+        <button class="btn btn-success btn-register-large" type="submit">Registrarse</button>
+      </div>
+    </form>
+    <div class="auth-links">
+      <a href="{% url 'clinica:inicio' %}">Volver</a>
     </div>
+  </div>
 </div>
 {% endblock %}

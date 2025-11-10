@@ -30,23 +30,23 @@
               <a class="nav-link" href="{% url 'clinica:cita_list' %}">Citas</a>
             </li>
           </ul>
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-auto align-items-center gap-3">
             {% if user.is_authenticated %}
-            <li class="nav-item">
-              <span class="navbar-text text-white me-3">
-                <i class="bi bi-person-circle"></i> {{ user.username }}
-              </span>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link btn btn-outline-light btn-sm" href="{% url 'clinica:logout' %}">Cerrar sesión</a>
-            </li>
+              <li class="nav-item">
+                <span class="navbar-text text-white me-3">
+                  <i class="bi bi-person-circle"></i> {{ user.username }}
+                </span>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn btn-outline-light btn-sm" href="{% url 'clinica:logout' %}">Cerrar sesión</a>
+              </li>
             {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'clinica:login' %}">Iniciar sesión</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link btn btn-light btn-sm ms-2" href="{% url 'clinica:registro' %}">Registrarse</a>
-            </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'clinica:login' %}">Iniciar sesión</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'clinica:registro' %}">Registrarse</a>
+              </li>
             {% endif %}
           </ul>
         </div>

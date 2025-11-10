@@ -1,0 +1,19 @@
+/* Centrar tarjeta de login/registro */
+.auth-wrap{ min-height: calc(100vh - 120px); display:flex; align-items:center; justify-content:center; }
+.auth-card{ width:100%; max-width:440px; background:#fff; border-radius:14px; padding:1.5rem; box-shadow:0 12px 30px rgba(0,0,0,.08); }
+.auth-card h1{ font-size:28px; margin-bottom:.75rem; font-weight:700; color:#1f2937; }
+.auth-card .form-control{ border-radius:8px; }
+.auth-card .btn{ width:100%; border-radius:8px; padding:.6rem; }
+
+/* Botón grande de registro */
+.btn-register-large{
+  font-size:1.15rem;
+  padding:.9rem 1.25rem;
+  font-weight:600;
+  letter-spacing:.5px;
+}
+
+/* Opcional: hover sutil */
+.btn-register-large:hover{
+  filter:brightness(1.08);
+}

@@ -1,0 +1,67 @@
+/* Encabezado */
+.pacientes-header{ display:flex; flex-direction:column; align-items:center; gap:.5rem; margin-bottom:1.25rem; }
+.pacientes-header h1{ font-size:36px; font-weight:700; color:#0f172a; margin:0; }
+.pacientes-header .sub{ color:#64748b; }
+
+/* Barra de búsqueda */
+.search-bar{ display:flex; gap:.5rem; margin-bottom:1rem; }
+.search-bar .form-control{ max-width:380px; }
+
+/* Tabla */
+.table { border-radius:12px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,.06); }
+.table thead th{ background:#eef2ff; color:#3730a3; }
+.table tbody tr:hover{ background:#f5f3ff; }
+
+/* Paginación */
+.pagination .page-link{ border-radius:8px; }
+/* Pacientes Page Styles */
+.pacientes-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.pacientes-header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.pacientes-header .sub {
+  color: #64748b;
+}
+
+/* Search Bar Styles */
+.search-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.search-bar .form-control {
+  max-width: 380px;
+}
+
+/* Table Styles */
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.table thead th {
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+.table tbody tr:hover {
+  background: #f5f3ff;
+}
+
+/* Pagination Styles */
+.pagination .page-link {
+  border-radius: 8px;
+}
