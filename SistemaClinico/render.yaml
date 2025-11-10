@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: sistema-clinico
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn SistemaClinico.wsgi:application
+    autoDeploy: true
+    envVars:
+      - key: SECRET_KEY
+        value: mj(aa1bog-)-z9higsa))&ao03!b$nob@4*@91oycc7km34c2p
+      - key: DEBUG
+        value: False
+      - key: ALLOWED_HOSTS
+        value: sistema-clinico.onrender.com
+      - key: DATABASE_URL
+        value: postgres://usuario:contraseña@host:puerto/dbname
+
