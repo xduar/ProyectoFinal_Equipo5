@@ -2,19 +2,25 @@ services:
   - type: web
     name: sistema-clinico
     env: python
-    rootDir: SistemaClinico
+    rootDir: SistemaClinico               # manage.py está aquí
     buildCommand: |
       pip install -r ../requirements.txt
       python manage.py collectstatic --no-input
       python manage.py migrate --no-input
     startCommand: gunicorn SistemaClinico.wsgi:application
+    autoDeploy: true
     envVars:
-      - key: SECRET_KEY
-        generateValue: true
+      - key: U9OM_BcS_iMMXN82t4Nr37MH36IT5gQ7j425yzJYS8-jpfPRV252sXEkmRmrLqIbJwSrc7M8Sx12blzfinhzTw
+        generateValue: true               # Render genera una clave aleatoria
       - key: DEBUG
         value: "False"
       - key: ALLOWED_HOSTS
         value: ".onrender.com"
       - key: PYTHON_VERSION
-        value: "3.11.0"
+        value: "3.11.0"                   # Evita sorpresas con 3.13
+
+databases:
+  - name: sistema-clinico-db
+    databaseName: sistema_clinico
+    user: sistema_clinico_user
 
