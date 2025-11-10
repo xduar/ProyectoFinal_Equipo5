@@ -2,13 +2,12 @@ services:
   - type: web
     name: sistema-clinico
     env: python
-    region: oregon
+    rootDir: SistemaClinico     # <- Muy importante en monorepo
     buildCommand: |
-      cd SistemaClinico
       pip install -r ../requirements.txt
       python manage.py collectstatic --no-input
-      python manage.py migrate
-    startCommand: cd SistemaClinico && gunicorn SistemaClinico.wsgi:application
+      python manage.py migrate --no-input
+    startCommand: gunicorn SistemaClinico.wsgi:application
     autoDeploy: true
     envVars:
       - key: SECRET_KEY
@@ -19,6 +18,7 @@ services:
         value: ".onrender.com"
       - key: PYTHON_VERSION
         value: "3.11.0"
+      # DATABASE_URL la inyectará automáticamente la base de datos de Render si la asocias
 
 databases:
   - name: sistema-clinico-db
