@@ -41,3 +41,5 @@ db.sqlite3-journal
 *.swp
 *.swo
 *~
+
+db.sqlite3
