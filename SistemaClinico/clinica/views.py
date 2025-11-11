@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 from django.contrib.auth import login
 from django.contrib.auth import logout as auth_logout
+from django.contrib import messages
 
 from .models import Paciente, Medico, Cita
 from .forms import PacienteForm, MedicoForm, CitaForm, RegistroUsuarioForm
@@ -212,6 +213,10 @@ class CitaDeleteView(LoginRequiredMixin, generic.DeleteView):
         ctx['view'] = 'confirm_delete'
         return ctx
 
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, 'La cita se eliminó correctamente.')
+        return super().delete(request, *args, **kwargs)
+
 
 class CitaDetailView(LoginRequiredMixin, generic.DetailView):
     model = Cita
@@ -235,7 +240,9 @@ def cita_completar(request, pk):
     if request.method == 'POST':
         cita = get_object_or_404(Cita, pk=pk)
         cita.delete()
-        return redirect('clinica:cita_list')
+        messages.success(request, 'La cita se marcó como realizada.')
+    else:
+        messages.warning(request, 'Acción no permitida.')
     return redirect('clinica:cita_list')
 
 

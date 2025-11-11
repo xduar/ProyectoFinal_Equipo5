@@ -13,3 +13,49 @@
 
 /* Acciones */
 .btn-sm{ padding:.25rem .5rem; font-size:.875rem; border-radius:6px; }
+
+/* Hero Section */
+.hero-cita{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  min-height:260px;
+  border-radius:18px;
+  background-size:cover;
+  background-position:center;
+  overflow:hidden;
+  margin-bottom:2rem;
+  box-shadow:0 18px 36px -18px rgba(15,23,42,.55);
+}
+.hero-cita::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(15,23,42,.78),rgba(15,118,110,.58));
+}
+.hero-card-cita{
+  position:relative;
+  padding:2.5rem 3.5rem;
+  color:#f8fafc;
+  max-width:640px;
+}
+.hero-card-cita h1{
+  font-size:3rem;
+  font-weight:700;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  margin-bottom:.75rem;
+}
+.hero-card-cita .lead{
+  font-size:1.1rem;
+  opacity:.92;
+}
+
+/* contenedor del botón */
+.header-actions{
+  display:flex;
+  justify-content:flex-start;
+  margin-bottom:1.25rem;
+}
