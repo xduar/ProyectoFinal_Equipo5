@@ -29,14 +29,16 @@ Plantilla para gestión de pacientes.
     <a class="btn btn-success" href="{% url 'clinica:paciente_create' %}">Nuevo Paciente</a>
     </div>
 
-    <form method="get" class="row g-3 mb-3">
-    <div class="col-auto">
-        <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="Buscar nombre, apellido o correo">
-    </div>
-    <div class="col-auto">
-        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
-    </div>
-    </form>
+    <form method="get" class="row g-3 mb-4">
+  <div class="col-12 col-md-8">
+    <input type="text" name="q" value="{{ request.GET.q }}" class="form-control form-control-lg" placeholder="Buscar nombre, apellido o correo">
+  </div>
+  <div class="col-12 col-md-4">
+    <button class="btn btn-outline-secondary btn-lg w-100" type="submit">
+      <i class="bi bi-search"></i> Buscar
+    </button>
+  </div>
+</form>
 
     <table class="table table-striped">
     <thead>
