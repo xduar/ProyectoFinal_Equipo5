@@ -202,10 +202,8 @@ class CitaDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy('clinica:cita_list')
 
     def get_queryset(self):
-        # Si es superusuario, puede eliminar todas las citas
         if self.request.user.is_superuser:
             return super().get_queryset()
-        # Si es usuario normal, solo puede eliminar sus citas
         return super().get_queryset().filter(usuario=self.request.user)
 
     def get_context_data(self, **kwargs):
@@ -216,23 +214,6 @@ class CitaDeleteView(LoginRequiredMixin, generic.DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, 'La cita se eliminó correctamente.')
         return super().delete(request, *args, **kwargs)
-
-
-class CitaDetailView(LoginRequiredMixin, generic.DetailView):
-    model = Cita
-    template_name = 'clinica/cita.html'
-
-    def get_queryset(self):
-        # Si es superusuario, puede ver todas las citas
-        if self.request.user.is_superuser:
-            return super().get_queryset()
-        # Si es usuario normal, solo puede ver sus citas
-        return super().get_queryset().filter(usuario=self.request.user)
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx['view'] = 'detail'
-        return ctx
 
 
 @login_required

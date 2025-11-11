@@ -1,10 +1,84 @@
-/* Header */
-.citas-header { text-align:center; margin-bottom:1.25rem; }
-.citas-header h1{ font-size:40px; font-weight:700; color:#1f2937; margin:0; }
-.citas-header p{ color:#6b7280; margin:.25rem 0 1rem; }
+/* PAGE HEADER - Gradient banner sin imagen */
+.page-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  min-height: 240px;
+  background: linear-gradient(135deg, #0d47a1 0%, #1565c0 50%, #1976d2 100%);
+  border-radius: 14px;
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(13, 71, 161, 0.2);
+}
 
-/* Botón crear */
-.button-container{ display:flex; justify-content:flex-start; margin-bottom:1rem; }
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.03) 2px,
+    rgba(255, 255, 255, 0.03) 4px
+  );
+  pointer-events: none;
+}
+
+.page-header__icon {
+  position: relative;
+  z-index: 1;
+  font-size: 4rem;
+  color: #e3f2fd;
+  opacity: 0.85;
+}
+
+.page-header__copy {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+  max-width: 600px;
+}
+
+.page-header__copy h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem 0;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-header__copy .lead {
+  font-size: 1.1rem;
+  color: #e3f2fd;
+  margin: 0;
+  font-weight: 300;
+}
+
+/* HEADER ACTIONS */
+.header-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-lg:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
 
 /* Tabla */
 .table-citas, .table { border-radius: 12px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,.06); }
@@ -58,4 +132,153 @@
   display:flex;
   justify-content:flex-start;
   margin-bottom:1.25rem;
+}
+
+/* Tabla Card */
+.table-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.table-card .table {
+  margin-bottom: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.table-card .table thead th {
+  background: linear-gradient(to right, #f5f7fa, #e8ecf1);
+  color: #334155;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+  padding: 1rem 0.75rem;
+  border: none;
+}
+
+.table-card .table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 0.2s ease;
+}
+
+.table-card .table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.table-card .table tbody td {
+  padding: 0.875rem 0.75rem;
+  vertical-align: middle;
+  color: #475569;
+}
+
+/* Botones en tabla */
+.table-card .btn-sm {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+  margin: 0 2px;
+}
+
+.table-card .btn-sm:hover {
+  transform: translateY(-1px);
+}
+
+.btn-info {
+  background-color: #0ea5e9;
+  border-color: #0ea5e9;
+  color: white;
+}
+
+.btn-info:hover {
+  background-color: #0284c7;
+  border-color: #0284c7;
+}
+
+/* EMPTY STATE */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #eef2f5 100%);
+  border-radius: 12px;
+  border: 2px dashed #cbd5e1;
+  color: #64748b;
+}
+
+.empty-state i {
+  font-size: 3.5rem;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.empty-state h3 {
+  color: #475569;
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.empty-state p {
+  color: #94a3b8;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 200px;
+    padding: 1.5rem;
+  }
+
+  .page-header__icon {
+    font-size: 3rem;
+  }
+
+  .page-header__copy h1 {
+    font-size: 2rem;
+  }
+
+  .page-header__copy .lead {
+    font-size: 0.95rem;
+  }
+
+  .table-card .table thead th,
+  .table-card .table tbody td {
+    padding: 0.5rem 0.4rem;
+    font-size: 0.8rem;
+  }
+
+  .table-card .btn-sm {
+    padding: 0.25rem 0.4rem;
+    font-size: 0.7rem;
+    margin: 1px;
+  }
+}
+
+@media (max-width: 576px) {
+  .page-header__icon {
+    font-size: 2rem;
+  }
+
+  .page-header__copy h1 {
+    font-size: 1.5rem;
+  }
+
+  .table-card .table {
+    font-size: 0.75rem;
+  }
+
+  .table-card .btn-sm {
+    display: block;
+    width: 100%;
+    margin: 0.25rem 0;
+  }
 }

@@ -11,8 +11,11 @@
 
 {% block hero %}
 {% if view == 'list' %}
-<section class="hero-cita" style="background-image: url('{% static "Clinica/img/citamedica.png" %}');">
-  <div class="hero-card-cita">
+<section class="page-header">
+  <div class="page-header__icon">
+    <i class="bi bi-calendar-check"></i>
+  </div>
+  <div class="page-header__copy">
     <h1>Citas</h1>
     <p class="lead">Gestión de citas médicas del sistema</p>
   </div>
@@ -22,51 +25,65 @@
 
 {% block content %}
 {% if view == 'list' %}
-    <div class="header-actions">
-        <a class="btn btn-success" href="{% url 'clinica:cita_create' %}">Nueva Cita</a>
+    <div class="header-actions mb-4">
+        <a class="btn btn-success btn-lg" href="{% url 'clinica:cita_create' %}">
+          <i class="bi bi-plus-circle"></i> Nueva Cita
+        </a>
     </div>
 
-    <table class="table table-striped">
+    {% if citas %}
+    <div class="table-card">
+      <table class="table table-striped">
         <thead>
-            <tr>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Paciente</th>
-                <th>Médico</th>
-                <th>Acciones</th>
-            </tr>
+          <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Paciente</th>
+            <th>Médico</th>
+            <th>Acciones</th>
+          </tr>
         </thead>
         <tbody>
-            {% for cita in citas %}
-            <tr>
-                <td>{{ cita.fecha }}</td>
-                <td>{{ cita.hora }}</td>
-                <td>{{ cita.paciente }}</td>
-                <td>{{ cita.medico }}</td>
-                <td>
-                    <a class="btn btn-sm btn-info" href="{% url 'clinica:cita_detail' cita.pk %}">Ver</a>
-                    <a class="btn btn-sm btn-primary" href="{% url 'clinica:cita_update' cita.pk %}">Editar</a>
-                    <form action="{% url 'clinica:cita_completar' cita.pk %}" method="post" class="d-inline">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-success"
-                                onclick="return confirm('¿Confirmar que la consulta fue realizada?')">
-                            Realizada
-                        </button>
-                    </form>
-                    <form action="{% url 'clinica:cita_delete' cita.pk %}" method="post" class="d-inline">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-danger"
-                                onclick="return confirm('¿Eliminar definitivamente esta cita?')">
-                            Eliminar
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="5">No hay citas aún.</td></tr>
-            {% endfor %}
+          {% for cita in citas %}
+          <tr>
+            <td>{{ cita.fecha }}</td>
+            <td>{{ cita.hora }}</td>
+            <td>{{ cita.paciente }}</td>
+            <td>{{ cita.medico }}</td>
+            <td>
+              <a class="btn btn-sm btn-info" href="{% url 'clinica:cita_detail' cita.pk %}">
+                <i class="bi bi-eye"></i> Ver
+              </a>
+              <a class="btn btn-sm btn-primary" href="{% url 'clinica:cita_update' cita.pk %}">
+                <i class="bi bi-pencil"></i> Editar
+              </a>
+              <form action="{% url 'clinica:cita_completar' cita.pk %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-success" 
+                        onclick="return confirm('¿Confirmar que la consulta fue realizada?')">
+                  <i class="bi bi-check-circle"></i> Realizada
+                </button>
+              </form>
+              <form action="{% url 'clinica:cita_delete' cita.pk %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-danger"
+                        onclick="return confirm('¿Eliminar definitivamente esta cita?')">
+                  <i class="bi bi-trash"></i> Eliminar
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
         </tbody>
-    </table>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <i class="bi bi-inbox"></i>
+      <h3>No hay citas aún</h3>
+      <p>Comienza creando una nueva cita desde el botón arriba.</p>
+    </div>
+    {% endif %}
 
 {% elif view == 'detail' %}
     <h2>Cita {{ object.fecha }} {{ object.hora }}</h2>
@@ -101,7 +118,7 @@
 
 {% elif view == 'confirm_delete' %}
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-danger text-white">
             <h3>Confirmar Eliminación</h3>
         </div>
         <div class="card-body">
