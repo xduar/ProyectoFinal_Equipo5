@@ -35,8 +35,14 @@
         <td><a href="{% url 'clinica:medico_detail' medico.pk %}">{{ medico.nombre }} {{ medico.apellido }}</a></td>
         <td>{{ medico.telefono }}</td>
         <td>
+            <a class="btn btn-sm btn-info" href="{% url 'clinica:medico_detail' medico.pk %}">Ver</a>
             <a class="btn btn-sm btn-primary" href="{% url 'clinica:medico_update' medico.pk %}">Editar</a>
-            <a class="btn btn-sm btn-danger" href="{% url 'clinica:medico_delete' medico.pk %}">Eliminar</a>
+            <form action="{% url 'clinica:medico_delete' medico.pk %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar definitivamente este médico?')">
+                    Eliminar
+                </button>
+            </form>
         </td>
         </tr>
         {% empty %}
