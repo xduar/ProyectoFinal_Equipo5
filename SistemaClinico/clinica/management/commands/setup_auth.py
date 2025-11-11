@@ -31,9 +31,9 @@ class Command(BaseCommand):
         
         # Crear superusuarios
         superusers = [
-            {'username': 'Doctor', 'email': 'Doctor1@clinica.com'},
-            {'username': 'Secretaria', 'email': 'Secretaria1@clinica.com'},
-            {'username': 'admin3', 'email': 'admin3@clinica.com'},
+            {'username': 'Doctor', 'email': 'Doctor1@clinica.com', 'password': 'Doctor123!'},
+            {'username': 'Secretaria', 'email': 'Secretaria1@clinica.com', 'password': 'Secretaria123!'},
+            {'username': 'admin3', 'email': 'admin3@clinica.com', 'password': 'Admin123!'},
         ]
         
         for admin in superusers:
@@ -41,10 +41,10 @@ class Command(BaseCommand):
                 User.objects.create_superuser(
                     username=admin['username'],
                     email=admin['email'],
-                    password='Admin123!' 
+                    password=admin['password']
                 )
                 self.stdout.write(
-                    self.style.SUCCESS(f'Superusuario "{admin["username"]}" creado')
+                    self.style.SUCCESS(f'Superusuario "{admin["username"]}" creado con contraseña: {admin["password"]}')
                 )
             else:
                 self.stdout.write(
@@ -52,5 +52,5 @@ class Command(BaseCommand):
                 )
 
         # Configurar la base de datos
-        DATABASE_URL = os.environ.get('DATABASE_URL', 'postgresql://usuario:contraseña@localhost:5432/sistemaclinico')
+        DATABASE_URL = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')
         self.stdout.write(self.style.SUCCESS(f'Conectado a la base de datos en {DATABASE_URL}'))

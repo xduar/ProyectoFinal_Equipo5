@@ -10,13 +10,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Seguridad - Leer desde variables de entorno
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key-change')
-DEBUG = 'render' not in os.environ
-ALLOWED_HOSTS = ['']
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-    
+    ALLOWED_HOSTS = [RENDER_EXTERNAL_HOSTNAME, 'localhost', '127.0.0.1']
+
     
 # Aplicaciones
 INSTALLED_APPS = [
@@ -62,15 +62,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SistemaClinico.wsgi.application'
 
-# Base de datos - PostgreSQL en producción, SQLite en desarrollo
-DATABASES = {
-    'default': dj_database_url.config(
-        default=f'sqlite:///{os.path.join(BASE_DIR, "db.sqlite3")}',
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-}
-
+# Base de datos - PostgreSQL/SQL Server en producción, SQLite en desarrollo
+DB_ENGINE = os.getenv('DB_ENGINE')
+if DB_ENGINE:
+    # Si hay variables de entorno, usar esas (producción)
+    DATABASES = {
+        'default': {
+            'ENGINE': DB_ENGINE,
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT'),
+        }
+    }
+    
 # Validación de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -78,12 +84,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
-
-# Internacionalización
-LANGUAGE_CODE = 'es-es'
-TIME_ZONE = 'America/Mexico_City'
-USE_I18N = True
-USE_TZ = True
 
 # Archivos estáticos
 STATIC_URL = '/static/'

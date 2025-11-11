@@ -24,6 +24,7 @@ body {
 
 .nav-link {
     transition: all 0.2s ease-in-out;
+    padding: .5rem .75rem; /* Unificar padding y altura de los enlaces del navbar */
 }
 
 .nav-link:hover {
