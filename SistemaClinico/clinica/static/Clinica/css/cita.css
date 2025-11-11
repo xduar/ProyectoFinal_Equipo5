@@ -80,6 +80,26 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
+/* Header Citas */
+.citas-header {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.citas-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #0d47a1;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+.citas-header p {
+  color: #64748b;
+  margin: 0;
+  font-size: 1rem;
+}
+
 /* Tabla */
 .table-citas, .table { border-radius: 12px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,.06); }
 .table thead th{ background:#f8fafc; color:#334155; font-weight:600; text-transform:uppercase; letter-spacing:.4px; }
@@ -134,58 +154,66 @@
   margin-bottom:1.25rem;
 }
 
+/* Botón crear */
+.header-actions .btn-success {
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.header-actions .btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 /* Tabla Card */
 .table-card {
   background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
   overflow: hidden;
   margin-bottom: 2rem;
 }
 
 .table-card .table {
   margin-bottom: 0;
-  border-radius: 0;
-  box-shadow: none;
 }
 
 .table-card .table thead th {
-  background: linear-gradient(to right, #f5f7fa, #e8ecf1);
+  background: #f8fafc;
   color: #334155;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 0.85rem;
-  padding: 1rem 0.75rem;
+  letter-spacing: 0.4px;
   border: none;
+  padding: 0.875rem 0.75rem;
 }
 
 .table-card .table tbody tr {
   border-bottom: 1px solid #e2e8f0;
-  transition: background-color 0.2s ease;
 }
 
 .table-card .table tbody tr:hover {
-  background-color: #f8fafc;
+  background: #f1f5f9;
 }
 
 .table-card .table tbody td {
   padding: 0.875rem 0.75rem;
   vertical-align: middle;
-  color: #475569;
 }
 
-/* Botones en tabla */
-.table-card .btn-sm {
+/* Acciones botones */
+.btn-sm {
   padding: 0.35rem 0.65rem;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
+  border-radius: 6px;
   font-weight: 600;
-  border-radius: 5px;
   transition: all 0.2s ease;
   margin: 0 2px;
 }
 
-.table-card .btn-sm:hover {
+.btn-sm:hover {
   transform: translateY(-1px);
 }
 
@@ -203,7 +231,7 @@
 /* EMPTY STATE */
 .empty-state {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 3.5rem 2rem;
   background: linear-gradient(135deg, #f8fafc 0%, #eef2f5 100%);
   border-radius: 12px;
   border: 2px dashed #cbd5e1;
@@ -211,22 +239,23 @@
 }
 
 .empty-state i {
-  font-size: 3.5rem;
+  font-size: 3rem;
   color: #94a3b8;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   opacity: 0.6;
 }
 
 .empty-state h3 {
   color: #475569;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin: 0.5rem 0;
+  font-weight: 600;
 }
 
 .empty-state p {
   color: #94a3b8;
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 /* RESPONSIVE */
@@ -250,15 +279,19 @@
     font-size: 0.95rem;
   }
 
+  .citas-header h1 {
+    font-size: 2rem;
+  }
+
   .table-card .table thead th,
   .table-card .table tbody td {
     padding: 0.5rem 0.4rem;
     font-size: 0.8rem;
   }
 
-  .table-card .btn-sm {
+  .btn-sm {
     padding: 0.25rem 0.4rem;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     margin: 1px;
   }
 }
@@ -272,11 +305,15 @@
     font-size: 1.5rem;
   }
 
+  .citas-header h1 {
+    font-size: 1.5rem;
+  }
+
   .table-card .table {
     font-size: 0.75rem;
   }
 
-  .table-card .btn-sm {
+  .btn-sm {
     display: block;
     width: 100%;
     margin: 0.25rem 0;
