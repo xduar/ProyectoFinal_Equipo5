@@ -39,7 +39,7 @@
             <a class="btn btn-sm btn-primary" href="{% url 'clinica:medico_update' medico.pk %}">Editar</a>
             <form action="{% url 'clinica:medico_delete' medico.pk %}" method="post" class="d-inline">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar definitivamente este médico?')">
+                <button type="button" class="btn btn-sm btn-danger" data-confirm="¿Eliminar definitivamente este médico?" data-confirm-type="danger">
                     Eliminar
                 </button>
             </form>

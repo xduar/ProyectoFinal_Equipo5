@@ -58,7 +58,7 @@ Plantilla para gestión de pacientes.
             <a class="btn btn-sm btn-primary" href="{% url 'clinica:paciente_update' paciente.pk %}">Editar</a>
             <form action="{% url 'clinica:paciente_delete' paciente.pk %}" method="post" class="d-inline">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar definitivamente este paciente?')">
+                <button type="button" class="btn btn-sm btn-danger" data-confirm="¿Eliminar definitivamente este paciente?" data-confirm-type="danger">
                     Eliminar
                 </button>
             </form>

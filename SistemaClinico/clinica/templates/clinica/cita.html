@@ -43,13 +43,13 @@
             <a class="btn btn-sm btn-primary" href="{% url 'clinica:cita_update' cita.pk %}">Editar</a>
             <form action="{% url 'clinica:cita_completar' cita.pk %}" method="post" class="d-inline">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('¿Confirmar que la consulta fue realizada?')">
+                <button type="button" class="btn btn-sm btn-success" data-confirm="¿Confirmar que la consulta fue realizada?" data-confirm-type="success">
                     Realizada
                 </button>
             </form>
             <form action="{% url 'clinica:cita_delete' cita.pk %}" method="post" class="d-inline">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar definitivamente esta cita?')">
+                <button type="button" class="btn btn-sm btn-danger" data-confirm="¿Eliminar definitivamente esta cita?" data-confirm-type="danger">
                     Eliminar
                 </button>
             </form>
@@ -107,7 +107,7 @@
     </dl>
     <form method="post">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <button type="button" class="btn btn-danger" data-confirm="¿Eliminar esta cita definitivamente?" data-confirm-type="danger">Eliminar</button>
         <a class="btn btn-secondary" href="{% url 'clinica:cita_list' %}">Cancelar</a>
     </form>
 
