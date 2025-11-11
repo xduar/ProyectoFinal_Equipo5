@@ -82,28 +82,28 @@
 
 /* Header Citas */
 .citas-header {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 1.25rem;
 }
 
 .citas-header h1 {
-  font-size: 2.5rem;
+  font-size: 36px;
   font-weight: 700;
   color: #0d47a1;
   margin: 0;
-  margin-bottom: 0.5rem;
 }
 
-.citas-header p {
-  color: #64748b;
-  margin: 0;
-  font-size: 1rem;
+.citas-header .sub {
+  color: #1565c0;
 }
 
 /* Tabla */
 .table-citas, .table { border-radius: 12px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,.06); }
-.table thead th{ background:#f8fafc; color:#334155; font-weight:600; text-transform:uppercase; letter-spacing:.4px; }
-.table tbody tr:hover{ background:#f1f5f9; }
+.table thead th{ background:#e3f2fd; color:#0d47a1; font-weight:700; text-transform:uppercase; letter-spacing:.4px; }
+.table tbody tr:hover{ background:#f5f5f5; }
 
 /* Acciones */
 .btn-sm{ padding:.25rem .5rem; font-size:.875rem; border-radius:6px; }
@@ -318,4 +318,12 @@
     width: 100%;
     margin: 0.25rem 0;
   }
+}
+
+/* Formularios */
+.form-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 8px 20px rgba(13, 71, 161, 0.06);
 }
