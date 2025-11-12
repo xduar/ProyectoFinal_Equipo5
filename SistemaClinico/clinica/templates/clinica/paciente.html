@@ -1,4 +1,6 @@
 {% extends 'clinica/base.html' %}
+{% load static %}
+
 {% comment %} 
 Plantilla para gestión de pacientes.
     - Lista: Tabla con buscador y paginación, muestra datos básicos
@@ -7,75 +9,96 @@ Plantilla para gestión de pacientes.
     - Eliminar: Confirmación con datos del paciente a eliminar 
 {% endcomment %}
 
-
 {% block title %}
 {% if view == 'list' %}Pacientes{% elif view == 'detail' %}Detalle Paciente{% elif view == 'form' %}Paciente{% elif view == 'confirm_delete' %}Eliminar Paciente{% endif %}
 {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'Clinica/css/paciente.css' %}">
+{% endblock %}
+
 {% block content %}
-{% if view == 'list' %}
-    <div class="d-flex justify-content-between align-items-center mb-3">
-<h2>Pacientes</h2>
-<a class="btn btn-success" href="{% url 'clinica:paciente_create' %}">Nuevo Paciente</a>
+<div class="pacientes-header">
+  <h1>Pacientes</h1>
+  <div class="sub">Registro y administración de pacientes</div>
 </div>
 
-    <div class="d-flex justify-content-between align-items-center mb-4 gap-3">
-      <form method="get" class="flex-grow-1">
-        <div class="input-group">
-          <input type="text" name="q" value="{{ request.GET.q }}" class="form-control form-control-lg" placeholder="Buscar nombre, apellido o correo">
-          <button class="btn btn-outline-secondary" type="submit">
-            <i class="bi bi-search"></i>
-          </button>
-        </div>
-      </form>
+{% if view == 'list' %}
+    <div class="list-container">
+      <div class="d-flex justify-content-between align-items-center mb-4 gap-3">
+        <form method="get" class="flex-grow-1">
+          <div class="input-group">
+            <input type="text" name="q" value="{{ request.GET.q }}" class="form-control form-control-lg" placeholder="Buscar nombre, apellido o correo">
+            <button class="btn btn-outline-secondary" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+        {% if can_add %}
+        <a class="btn btn-success" href="{% url 'clinica:paciente_create' %}">Nuevo Paciente</a>
+        {% endif %}
+      </div>
+
+      <table class="table table-striped">
+      <thead>
+          <tr>
+          <th>Nombre</th>
+          <th>Teléfono</th>
+          <th>Correo</th>
+          <th>Acciones</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for paciente in pacientes %}
+          <tr>
+          <td><a href="{% url 'clinica:paciente_detail' paciente.pk %}">{{ paciente.nombre }} {{ paciente.apellido }}</a></td>
+          <td>{{ paciente.telefono }}</td>
+          <td>{{ paciente.correo_electronico }}</td>
+          <td>
+              {% if can_view %}
+              <a class="btn btn-sm btn-info" href="{% url 'clinica:paciente_detail' paciente.pk %}">Ver</a>
+              {% endif %}
+              
+              {% if can_change %}
+              <a class="btn btn-sm btn-primary" href="{% url 'clinica:paciente_update' paciente.pk %}">Editar</a>
+              {% endif %}
+              
+              {% if can_delete %}
+              <form action="{% url 'clinica:paciente_delete' paciente.pk %}" method="post" class="d-inline">
+                  {% csrf_token %}
+                  <button type="button" class="btn btn-sm btn-danger" data-confirm="¿Eliminar definitivamente este paciente?" data-confirm-type="danger">
+                      Eliminar
+                  </button>
+              </form>
+              {% endif %}
+          </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="4">No hay pacientes aún.</td></tr>
+          {% endfor %}
+      </tbody>
+      </table>
+
+      {% if is_paginated %}
+      <nav aria-label="Paginación">
+      <ul class="pagination">
+          {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link" href="?q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}">Anterior</a></li>
+          {% else %}
+          <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+          {% endif %}
+          <li class="page-item disabled"><span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span></li>
+          {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?q={{ request.GET.q }}&page={{ page_obj.next_page_number }}">Siguiente</a></li>
+          {% else %}
+          <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+          {% endif %}
+      </ul>
+      </nav>
+      {% endif %}
     </div>
 
-    <table class="table table-striped">
-    <thead>
-        <tr>
-        <th>Nombre</th>
-        <th>Teléfono</th>
-        <th>Correo</th>
-        <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for paciente in pacientes %}
-        <tr>
-        <td><a href="{% url 'clinica:paciente_detail' paciente.pk %}">{{ paciente.nombre }} {{ paciente.apellido }}</a></td>
-        <td>{{ paciente.telefono }}</td>
-        <td>{{ paciente.correo_electronico }}</td>
-        <td>
-            <a class="btn btn-sm btn-primary" href="{% url 'clinica:paciente_update' paciente.pk %}">Editar</a>
-            <a class="btn btn-sm btn-danger" href="{% url 'clinica:paciente_delete' paciente.pk %}">Eliminar</a>
-        </td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="4">No hay pacientes aún.</td></tr>
-        {% endfor %}
-    </tbody>
-    </table>
-
-    {% if is_paginated %}
-    <nav aria-label="Paginación">
-    <ul class="pagination">
-        {% if page_obj.has_previous %}
-        <li class="page-item"><a class="page-link" href="?q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}">Anterior</a></li>
-        {% else %}
-        <li class="page-item disabled"><span class="page-link">Anterior</span></li>
-        {% endif %}
-        <li class="page-item disabled"><span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span></li>
-        {% if page_obj.has_next %}
-        <li class="page-item"><a class="page-link" href="?q={{ request.GET.q }}&page={{ page_obj.next_page_number }}">Siguiente</a></li>
-        {% else %}
-        <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
-        {% endif %}
-    </ul>
-    </nav>
-    {% endif %}
-
 {% elif view == 'detail' %}
-    <div class="container mt-0">
     <h2>{{ object.nombre }} {{ object.apellido }}</h2>
     <ul class="list-group">
         <li class="list-group-item"><strong>Fecha de nacimiento:</strong> {{ object.fecha_nacimiento }}</li>
@@ -83,9 +106,10 @@ Plantilla para gestión de pacientes.
         <li class="list-group-item"><strong>Correo:</strong> {{ object.correo_electronico }}</li>
     </ul>
     <div class="mt-3">
+        {% if can_change %}
         <a class="btn btn-primary" href="{% url 'clinica:paciente_update' object.pk %}">Editar</a>
+        {% endif %}
         <a class="btn btn-secondary" href="{% url 'clinica:paciente_list' %}">Volver</a>
-    </div>
     </div>
 
 {% elif view == 'form' %}

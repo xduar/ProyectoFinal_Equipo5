@@ -18,7 +18,9 @@
 {% if view == 'list' %}
     <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Citas</h2>
+    {% if can_add %}
     <a class="btn btn-success" href="{% url 'clinica:cita_create' %}">Nueva Cita</a>
+    {% endif %}
     </div>
 
     <table class="table table-striped">
@@ -39,20 +41,31 @@
         <td>{{ cita.paciente }}</td>
         <td>{{ cita.medico }}</td>
         <td>
+            {% if can_view %}
             <a class="btn btn-sm btn-info" href="{% url 'clinica:cita_detail' cita.pk %}">Ver</a>
+            {% endif %}
+            
+            {% if can_change %}
             <a class="btn btn-sm btn-primary" href="{% url 'clinica:cita_update' cita.pk %}">Editar</a>
+            {% endif %}
+            
+            {% if can_view %}
             <form action="{% url 'clinica:cita_completar' cita.pk %}" method="post" class="d-inline">
                 {% csrf_token %}
                 <button type="button" class="btn btn-sm btn-success" data-confirm="¿Confirmar que la consulta fue realizada?" data-confirm-type="success">
                     Realizada
                 </button>
             </form>
+            {% endif %}
+            
+            {% if can_delete %}
             <form action="{% url 'clinica:cita_delete' cita.pk %}" method="post" class="d-inline">
                 {% csrf_token %}
                 <button type="button" class="btn btn-sm btn-danger" data-confirm="¿Eliminar definitivamente esta cita?" data-confirm-type="danger">
                     Eliminar
                 </button>
             </form>
+            {% endif %}
         </td>
         </tr>
         {% empty %}

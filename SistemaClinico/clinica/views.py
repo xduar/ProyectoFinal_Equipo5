@@ -37,6 +37,10 @@ class PacienteListView(AdminRequiredMixin, LoginRequiredMixin, generic.ListView)
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['view'] = 'list'
+        ctx['can_add'] = self.request.user.has_perm('clinica.add_paciente')
+        ctx['can_change'] = self.request.user.has_perm('clinica.change_paciente')
+        ctx['can_delete'] = self.request.user.has_perm('clinica.delete_paciente')
+        ctx['can_view'] = self.request.user.has_perm('clinica.view_paciente')
         return ctx
 
 
@@ -94,6 +98,10 @@ class MedicoListView(AdminRequiredMixin, LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['view'] = 'list'
+        ctx['can_add'] = self.request.user.has_perm('clinica.add_medico')
+        ctx['can_change'] = self.request.user.has_perm('clinica.change_medico')
+        ctx['can_delete'] = self.request.user.has_perm('clinica.delete_medico')
+        ctx['can_view'] = self.request.user.has_perm('clinica.view_medico')
         return ctx
 
 
@@ -143,21 +151,27 @@ class MedicoDetailView(AdminRequiredMixin, LoginRequiredMixin, generic.DetailVie
 
 
 # Cita CRUD
+def has_permission(user, perm_codename):
+    """Verifica si el usuario tiene un permiso específico"""
+    return user.has_perm(f'clinica.{perm_codename}')
+
 class CitaListView(LoginRequiredMixin, generic.ListView):
     model = Cita
     template_name = 'clinica/cita.html'
     context_object_name = 'citas'
     
     def get_queryset(self):
-        # Si es superusuario, puede ver todas las citas
         if self.request.user.is_superuser:
             return super().get_queryset().order_by('fecha', 'hora')
-        # Si es usuario normal, solo ve sus citas
         return super().get_queryset().filter(usuario=self.request.user).order_by('fecha', 'hora')
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx['view'] = 'list'
+        ctx['can_add'] = self.request.user.has_perm('clinica.add_cita')
+        ctx['can_change'] = self.request.user.has_perm('clinica.change_cita')
+        ctx['can_delete'] = self.request.user.has_perm('clinica.delete_cita')
+        ctx['can_view'] = self.request.user.has_perm('clinica.view_cita')
         return ctx
 
 
